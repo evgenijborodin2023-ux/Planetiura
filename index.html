@@ -1,91 +1,257 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Галерея космоса</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бородин В.Е. - Галерея Космоса</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background: linear-gradient(135deg, #0b0d2e, #1b1d4e);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
+            background: linear-gradient(135deg, #0b0b2b 0%, #1a1a3a 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #87ceeb;
+            font-style: italic;
+        }
+        
+        .author-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-item span:first-child {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .gallery-title {
+            font-size: 2.2em;
+            color: #fff;
+            margin-bottom: 30px;
+            padding-left: 10px;
+            border-left: 5px solid #ffd700;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #2a2a4a, #1a1a3a);
+            border-radius: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ffd700;
+            color: #87ceeb;
+            font-size: 1.1em;
             text-align: center;
             padding: 20px;
-            margin: 0;
         }
-        h1 {
-            font-size: 48px;
-            text-shadow: 0 0 10px cyan, 0 0 20px blue;
-            letter-spacing: 3px;
+        
+        .card img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 3px solid rgba(255, 215, 0, 0.3);
         }
-        h2 {
-            font-size: 36px;
-            color: #ffd966;
-            border-bottom: 2px dashed #ffd966;
-            display: inline-block;
-            padding-bottom: 5px;
-            margin-top: 40px;
+        
+        .card p {
+            margin: 10px 0;
+            font-size: 1.1em;
         }
-        img {
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin: 10px;
-            border: 3px solid white;
+        
+        .card p b {
+            color: #87ceeb;
         }
-        img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px cyan;
-        }
-        .intro {
-            font-size: 20px;
-            background: rgba(255,255,255,0.1);
-            padding: 15px 25px;
-            border-radius: 50px;
-            display: inline-block;
-            backdrop-filter: blur(5px);
-            margin: 20px 0;
-        }
-        .paw {
-            border-radius: 50%;
-            box-shadow: 0 0 30px gold;
-        }
-        p {
-            font-size: 18px;
-            background: rgba(0,0,0,0.4);
-            padding: 8px 15px;
-            border-radius: 30px;
-            display: inline-block;
-            margin: 5px 0;
-        }
-        .footer {
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
             margin-top: 50px;
-            font-size: 16px;
-            color: #aaa;
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
+            color: #87ceeb;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: transparent;
+            z-index: -1;
+        }
+        
+        .stars::before,
+        .stars::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+        
+        .stars::before {
+            box-shadow: 0 0 5px #fff,
+                        100px 200px 5px #fff,
+                        300px 400px 5px #fff,
+                        500px 100px 5px #fff,
+                        700px 500px 5px #fff,
+                        900px 300px 5px #fff;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .gallery-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <header>
+            <h1>🌌 ГАЛЕРЕЯ КОСМОСА 🌌</h1>
+            <div class="subtitle">Путешествие по бескрайним просторам Вселенной</div>
+        </header>
 
-    <img class="paw" width="120" src="https://static.wixstatic.com/media/5a3236_9d45083ec52a4b62869261df0bfcbebb~mv2.jpg/v1/fill/w_980,h_490,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/5a3236_9d45083ec52a4b62869261df0bfcbebb~mv2.jpg" alt="звезда">
-    <h1>✨ ГАЛЕРЕЯ КОСМОСА ✨</h1>
-    <div class="intro">🚀 Путешествие по бескрайним просторам Вселенной</div>
+        <div class="author-info">
+            <div class="info-item">
+                <span>Студент:</span>
+                <span>Бородин Всеволод Евгеньевич</span>
+            </div>
+            <div class="info-item">
+                <span>Группа:</span>
+                <span>283</span>
+            </div>
+            <div class="info-item">
+                <span>Дата:</span>
+                <span>2026</span>
+            </div>
+        </div>
 
-    <h2>🪐 Сатурн</h2>
-    <img width="350" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/1280px-Saturn_during_Equinox.jpg" alt="Сатурн">
-    <p><b>📍 Где находится:</b> Солнечная система</p>
-    <p><b>🪐 Интересный факт:</b> Имеет 146 спутников и знаменитые кольца</p>
+        <h2 class="gallery-title">✨ Основная галерея (ветка main)</h2>
+        
+        <div class="gallery-grid">
+            <!-- Карточка 1: Солнце -->
+            <div class="card">
+                <h2>☀️ Солнце</h2>
+                <div class="image-placeholder">
+                    <img width=100px src="img/sun.jpg">
+                </div>
+                <p><b>Тип:</b> Желтый карлик</p>
+                <p><b>Температура:</b> 5,500°C</p>
+                <p><b>Интересный факт:</b> Составляет 99.86% массы всей Солнечной системы</p>
+            </div>
 
-    <h2>🌍 Земля</h2>
-    <img width="350" src="https://images.mentoday.ru/upload/img_cache/34c/34cc7db1deaf370ccc348ea0897851c6_ce_1500x790x0x26_cropped_1200x628.jpg" alt="Земля">
-    <p><b>📍 Где находится:</b> Солнечная система</p>
-    <p><b>🌱 Интересный факт:</b> Единственная известная планета с жизнью</p>
+            <!-- Карточка 2: Луна -->
+            <div class="card">
+                <h2>🌕 Луна</h2>
+                <div class="image-placeholder">
+                    <img width=100px src="img/moon.jpg">
+                </div>
+                <p><b>Тип:</b> Естественный спутник</p>
+                <p><b>Расстояние до Земли:</b> 384,400 км</p>
+                <p><b>Интересный факт:</b> Каждый год отдаляется от Земли на 4 см</p>
+            </div>
 
-    <h2>👨‍🚀 Космонавт</h2>
-    <img width="350" src="https://i.ytimg.com/vi/6sX0VedYx4w/maxresdefault.jpg" alt="Космонавт">
-    <p><b>👤 Кто это:</b> Исследователь космоса</p>
-    <p><b>🚀 Интересный факт:</b> Первый полёт человека — Юрий Гагарин, 1961</p>
+            <!-- Карточка 3: Марс -->
+            <div class="card">
+                <h2>🔴 Марс</h2>
+                <div class="image-placeholder">
+                    <img width=100px src="img/mars.jpg">
+                </div>
+                <p><b>Тип:</b> Планета земной группы</p>
+                <p><b>Атмосфера:</b> 95% углекислого газа</p>
+                <p><b>Интересный факт:</b> Здесь находится самая высокая гора в Солнечной системе</p>
+            </div>
+        </div>
 
-    <div class="footer">🌟 Вселенная ждёт тебя! 🌟</div>
-
+        <footer>
+            <p>© 2026 Галерея Космоса | Бородин В.Е. | Вселенная бесконечна, как и наши знания о ней</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">⚡ Лабораторная работа по Git и GitHub ⚡</p>
+        </footer>
+    </div>
 </body>
 </html>
